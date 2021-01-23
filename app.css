@@ -1,0 +1,79 @@
+/* app css stylesheet */
+
+.menu {
+  list-style: none;
+  border-bottom: 0.1em solid black;
+  margin-bottom: 2em;
+  padding: 0 0 0.5em;
+}
+
+.menu:before {
+  content: "[";
+}
+
+.menu:after {
+  content: "]";
+}
+
+.menu > li {
+  display: inline;
+}
+
+.menu > li + li:before {
+  content: "|";
+  padding-right: 0.3em;
+}
+
+.selectedMenuItem{
+  font-weight: bold;
+}
+
+.ms-auto{
+  margin-start: auto;
+}
+
+.home-writing-area{
+  margin-top: 150px;
+}
+
+.home-login-area{
+  text-align: center;
+  margin-top: 50px;
+}
+
+.open>.dropdown-menu {
+  display: block;
+}
+.dropdown-menu{
+  min-width: 0px;
+}
+.dropdown-menu>li>a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: 400;
+  line-height: 1.42857143;
+  color: #333;
+  white-space: nowrap;
+  text-decoration: none;
+}
+.nav-item{
+  margin: 2px;
+}
+.m-b-15{
+  margin-bottom: 15px;
+}
+.m-l-15{
+  margin-left: 15px;
+}
+.m-t-15{
+  margin-top: 15px;
+}
+.footer{
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  background-color: #f8f9fa;
+  padding-top: 15px;
+  padding-bottom: 10px;
+}

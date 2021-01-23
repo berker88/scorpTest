@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html lang="en" ng-app="myApp" class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html lang="en" ng-app="myApp" class="no-js"> <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>My AngularJS App</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/normalize.css">
+  <link rel="stylesheet" href="lib/html5-boilerplate/dist/css/main.css">
+  <link rel="stylesheet" href="assets/bootstrap.css">
+  <link rel="stylesheet" href="lib/angular-ui-bootstrap/dist/ui-bootstrap-csp.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+  <link rel="stylesheet" href="app.css">
+  <script src="lib/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
+</head>
+<body>
+  <header ng-controller="headerController">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container">
+        <a class="navbar-brand" href="#" ng-if="checkURL('view1')"><i class="fas fa-home"></i> SCORP TEST</a>
+        <a class="navbar-brand" href="#" ng-if="checkURL('view2')"><i class="fas fa-phone-volume"></i> {{'CONTACT' | translate}}</a>
+        <button class="navbar-toggler" type="button"  ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse" id="navbarNav" ng-class="{collapse: isCollapsed}">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#!/view1" ng-class="{selectedMenuItem: checkURL('view1')}">{{'HOMEPAGE' | translate}} <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#!/view2" ng-class="{selectedMenuItem: checkURL('view2')}">{{'CONTACT' | translate}}</a>
+            </li>
+            <li>
+              <div class="btn-group" uib-dropdown is-open="status.isOpen">
+                <button id="single-button" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                  <i class="fas fa-globe"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button">
+                  <li role="menuitem" ng-click="changeLanguage('tr')"><a href="#">{{'TURKISH' | translate}}</a></li>
+                  <li role="menuitem" ng-click="changeLanguage('en')"><a href="#">{{'ENGLISH' | translate}}</a></li>
+                </ul>
+              </div>
+            </li>
+            <li class="nav-item" ng-if="!userLogedIn">
+              <a class="nav-link" href="#" ng-click="openLogInModal()">{{'LOGIN' | translate}}</a>
+            </li>
+            <li ng-if="userLogedIn" m-l-15>
+              &nbsp;
+            </li>
+            <li ng-if="userLogedIn">
+              <div class="btn-group" uib-dropdown is-open="status.isOpenUser">
+                <button id="single-button-2" type="button" class="btn btn-primary" uib-dropdown-toggle ng-disabled="disabled">
+                  <i class="fas fa-user"></i> <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" uib-dropdown-menu role="menu" aria-labelledby="single-button-2">
+                  <li role="menuitem"><a href="#">{{userInfo.Email}}</a></li>
+                  <li role="menuitem" ng-click="logOut()"><a href="#">{{'LOGOUT' | translate}}</a></li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+  </header>
+
+  <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+  <![endif]-->
+
+  <div ng-view></div>
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          {{'FOOTER_WRITING' | translate}}
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script type="text/ng-template" id="myModalContent.html">
+    <form ng-submit="$ctrl.login()">
+    <div class="modal-body" id="modal-body">
+      <div class="row">
+        <div class="col-md-12 m-b-15">
+          {{'LOGIN_TITLE' | translate}}
+        </div>
+        <div class="col-md-12 m-b-15">
+          <div class="form-group">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{'EMAIL' | translate}}" required ng-model="$ctrl.userInfo.Email">
+            <small id="emailHelp" class="form-text text-muted">{{'EMAIL_INFO' | translate}}</small>
+          </div>
+        </div>
+        <div class="col-md-12 m-b-15">
+          <div class="form-group">
+            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="{{'PASSWORD' | translate}}" required ng-model="$ctrl.userInfo.Password">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-success" type="submit">{{'LOGIN' | translate}}</button>
+      <div class="btn btn-warning" type="button" ng-click="$ctrl.cancel()">{{'CANCEL' | translate}}</div>
+    </div>
+    </form>
+  </script>
+
+  <!-- In production use:
+  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
+  -->
+  <script src="lib/angular/angular.js"></script>
+  <script src="lib/angular-route/angular-route.js"></script>
+  <script src="lib/angular-translate/dist/angular-translate.js"></script>
+  <script src="lib/angular-sanitize/angular-sanitize.min.js"></script>
+  <script src="lib/angular-local-storage/dist/angular-local-storage.js"></script>
+  <script src="lib/angular-animate/angular-animate.js"></script>
+  <script src="assets/bootstrap.js"></script>
+  <script src="lib/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+  <script src="app.js"></script>
+  <script src="view1/view1.js"></script>
+  <script src="view2/view2.js"></script>
+  <script src="core/version/version.js"></script>
+  <script src="core/version/version-directive.js"></script>
+  <script src="core/version/interpolate-filter.js"></script>
+</body>
+</html>

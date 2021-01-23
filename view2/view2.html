@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="home-writing-area m-b-15">
+          <h1>{{'CONTACT_TITLE' | translate}}</h1>
+        </div>
+      </div>
+    </div>
+    <form ng-submit="contactSubmit()">
+      <div class="row">
+        <div class="col-md-6 m-b-15">
+          <div class="form-group">
+            <input type="text" class="form-control" id="exampleInputName" placeholder="{{'NAME' | translate}}" required ng-model="userInfo.Name">
+          </div>
+        </div>
+        <div class="col-md-6 m-b-15">
+          <div class="form-group">
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="{{'EMAIL' | translate}}" required ng-model="userInfo.Email">
+            <small id="emailHelp" class="form-text text-muted">{{'EMAIL_INFO' | translate}}</small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 m-b-15">
+          <div class="form-group">
+            <input type="tel" class="form-control" id="exampleInputPhone" aria-describedby="phoneHelp" placeholder="{{'PHONE' | translate}}" required ng-model="userInfo.Phone" pattern="[+]{1}[0-9]{11,14}">
+            <small id="phoneHelp" class="form-text text-muted">+12345678912</small>
+          </div>
+        </div>
+        <div class="col-md-6 m-b-15">
+          <div class="form-group">
+            <input type="text" class="form-control" name="exampleInputCountry" ng-model="userInfo.Country" typeahead-on-select="selectTypeAhead($item)" uib-typeahead="country.name as (country.name | translate) for country in countries | filter:{name:$viewValue}"  typeahead-loading="loading" typeahead-no-results="noResults" class="form-control input-sm" autocomplete="off" placeholder="{{'COUNTRY' | translate}}" required>
+            <i ng-show="loading" class="glyphicon glyphicon-refresh"></i>
+            <div ng-show="noResults">
+              <i class="glyphicon glyphicon-remove"></i> {{'NO_RESULTS' | translate}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12 m-b-15">
+          <div class="form-group">
+            <textarea rows="5" class="form-control" id="exampleInputText" required ng-model="userInfo.Text" placeholder="{{'SHARE_WITH_US' | translate}}" ng-model="userInfo.Message"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6 m-t-15">
+          <button class="btn btn-success w-100">{{'SEND' | translate}}</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
